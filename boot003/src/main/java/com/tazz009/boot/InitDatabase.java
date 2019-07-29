@@ -1,5 +1,7 @@
 package com.tazz009.boot;
 
+import java.util.UUID;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoOperations;
@@ -12,12 +14,12 @@ public class InitDatabase {
 		return args -> {
 			operations.dropCollection(Image.class);
 
-			operations.insert(new Image("1",
-				"learning-spring-boot-cover.jpg"));
-			operations.insert(new Image("2",
-				"learning-spring-boot-2nd-edition-cover.jpg"));
-			operations.insert(new Image("3",
-				"bazinga.png"));
+			operations.insert(new Image(UUID.randomUUID().toString(),
+				"btn_play_n.png"));
+			operations.insert(new Image(UUID.randomUUID().toString(),
+				"btn_search_1_n.png"));
+			operations.insert(new Image(UUID.randomUUID().toString(),
+				"btn_stop_n.png"));
 
 			operations.findAll(Image.class).forEach(image -> {
 				System.out.println(image.toString());

@@ -1,6 +1,7 @@
 package com.tazz009.boot;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,7 +23,9 @@ import reactor.core.publisher.Mono;
 @Service
 public class ImageService {
 
-	private static String UPLOAD_ROOT = "upload-dir";
+	static String UPLOAD_ROOT = "upload-dir";
+	static String TEMP_DIR = "temp-dir";
+	
 	private final ResourceLoader resourceLoader;
 	private final ImageRepository imageRepository;
 	
@@ -96,16 +99,26 @@ public class ImageService {
 
 			Files.createDirectory(Paths.get(UPLOAD_ROOT));
 
-			FileCopyUtils.copy("Test file",
-				new FileWriter(UPLOAD_ROOT +
-					"/learning-spring-boot-cover.jpg"));
-
-			FileCopyUtils.copy("Test file2",
-				new FileWriter(UPLOAD_ROOT +
-					"/learning-spring-boot-2nd-edition-cover.jpg"));
-
-			FileCopyUtils.copy("Test file3",
-				new FileWriter(UPLOAD_ROOT + "/bazinga.png"));
+			Files.copy(Paths.get(TEMP_DIR +
+					"/btn_play_n.png"), Paths.get(UPLOAD_ROOT, "/btn_play_n.png"));
+			Files.copy(Paths.get(TEMP_DIR +
+					"/btn_search_1_n.png"), Paths.get(UPLOAD_ROOT, "/btn_search_1_n.png"));
+			Files.copy(Paths.get(TEMP_DIR +
+					"/btn_stop_n.png"), Paths.get(UPLOAD_ROOT, "/btn_stop_n.png"));
+			
+//			FileCopyUtils.copy(new FileReader(TEMP_DIR +
+//					"/btn_play_n.png"),
+//				new FileWriter(UPLOAD_ROOT +
+//					"/btn_play_n.png"));
+//
+//			FileCopyUtils.copy(new FileReader(TEMP_DIR +
+//					"/btn_search_1_n.png"),
+//				new FileWriter(UPLOAD_ROOT +
+//					"/btn_search_1_n.png"));
+//
+//			FileCopyUtils.copy(new FileReader(TEMP_DIR +
+//					"/btn_stop_n.png"),
+//				new FileWriter(UPLOAD_ROOT + "/btn_stop_n.png"));
 		};
 	}
 }
